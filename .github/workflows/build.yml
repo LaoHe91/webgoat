@@ -30,6 +30,10 @@ jobs:
             -   name: pre-commit-ci-lite
                 uses: pre-commit-ci/lite-action@v1.1.0
                 if: always()
+     -
+      name: Upload to CoPilot
+      if: github.event_name == 'push' || github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
+      run: bash <(curl -s https://copilot.blackducksoftware.com/ci/githubactions/scripts/upload)
     build:
         runs-on: ${{ matrix.os }}
         needs: [ pre-commit ]
